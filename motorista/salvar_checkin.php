@@ -7,7 +7,7 @@ $status = $_POST['status'];
 $localizacao = $_POST['localizacao'];
 $destino = $_POST['destino'];
 
-// Exemplo: valores fixos. Ideal: buscar via API.
+// Coordenadas fixas de exemplo
 $latitude = -23.5505;
 $longitude = -46.6333;
 $destino_lat = -20.4697;
