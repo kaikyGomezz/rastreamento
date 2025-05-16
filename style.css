@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   background: #0f0f0f;
-  color: #f0f0f0;
+  color: #1db954;
 }
 
 h1 {
@@ -25,62 +25,35 @@ h1 {
   align-items: center;
   justify-content: center;
   border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
   text-align: center;
   transition: transform 0.3s;
   font-size: 20px;
   font-weight: bold;
+  color: #1db954;
 }
 
 .card:hover {
   transform: scale(1.05);
 }
 
-.admin {
-  background: rgba(255, 87, 34, 0.8); /* Laranja contrastante */
-  color: #fff;
-}
-
-.motorista {
-  background: rgba(33, 150, 243, 0.8); /* Azul claro contrastante */
-  color: #fff;
-}
-
-form {
-  max-width: 500px;
-  margin: 20px auto;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-}
-
-input, select, button {
-  width: 100%;
-  margin-top: 10px;
-  padding: 12px;
-  border-radius: 5px;
-  border: none;
-  background: #1e1e1e;
-  color: #fff;
-}
-
-button, .btn {
+form button, .btn {
   display: inline-block;
   background: #1db954;
   color: white;
   font-weight: bold;
   cursor: pointer;
-  padding: 6px 10px;
+  padding: 6px 8px;
   border-radius: 5px;
-  font-size: 14px;
-  margin: 5px;
+  font-size: 10px; /* Ícones menores */
+  margin: 3px;
   text-decoration: none;
   border: none;
   transition: background 0.3s;
 }
 
-button:hover, .btn:hover {
+form button:hover, .btn:hover {
   background: #14833b;
 }
 
