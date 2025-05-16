@@ -84,7 +84,7 @@
       font-size: 26px;
     }
 
-    .login-box input {
+    .login-box input, .login-box select {
       padding: 12px;
       margin: 10px 0;
       border: none;
@@ -111,6 +111,7 @@
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
+      width: 100%;
     }
 
     .login-box button:hover {
@@ -158,34 +159,28 @@
   <div class="center-box" id="loginContainer" style="display:none;">
     <div class="login-box" id="loginBox">
       <h2>Login</h2>
-      <form id="loginForm" method="POST">
-        <input type="text" placeholder="Usuário" required>
-        <input type="password" placeholder="Senha" required>
+      <form id="loginForm" method="POST" action="login.php">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="senha" placeholder="Senha" required>
+        <input type="hidden" name="tipo" id="tipoUsuario">
         <div class="remember">
           <label><input type="checkbox"> Lembrar me</label>
           <a href="#">Esqueceu a senha?</a>
         </div>
-        <button type="submit" id="btnLogin">Entrar</button>
+        <button type="submit">Entrar</button>
         <div class="link">
-          Não tem uma conta? <a href="#">Criar conta</a>
+          Não tem uma conta? <a href="registro.php">Criar conta</a>
         </div>
       </form>
     </div>
   </div>
 
   <script>
-    let destino = '';
-
     function showLogin(tipo) {
-      destino = tipo === 'admin' ? 'admin/index.php' : 'motorista/checkin.php';
+      document.getElementById('tipoUsuario').value = tipo;
       document.getElementById('choiceBox').style.display = 'none';
       document.getElementById('loginContainer').style.display = 'flex';
     }
-
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      window.location.href = destino;
-    });
   </script>
 
 </body>
