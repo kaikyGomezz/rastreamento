@@ -1,41 +1,21 @@
-body.index {
-  background: url('https://lh3.googleusercontent.com/p/AF1QipMBDzOw51G6BcLXmJHRgnGZu0gt0MvofihF7aT2=s680-w680-h510-rw') no-repeat center center fixed;
-  background-size: cover;
+body {
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
   color: #fff;
-  text-align: center;
+  background-color: #121212;
 }
 
 .container {
-  margin-top: 20%;
-}
-
-.opcoes {
-  margin-top: 20px;
-}
-
-.botao {
-  display: inline-block;
-  margin: 10px;
-  padding: 20px 40px;
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
-  text-decoration: none;
-  border-radius: 10px;
-  font-size: 20px;
-  transition: background 0.3s;
-}
-
-.botao:hover {
-  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
 }
 
 form {
   max-width: 500px;
-  margin: auto;
-  background: rgba(0,0,0,0.6);
+  margin: 20px auto;
+  background: rgba(0, 0, 0, 0.6);
   padding: 30px;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 input, select, button {
@@ -50,6 +30,19 @@ button {
   background: teal;
   color: white;
   font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #006666;
+}
+
+.caminhao {
+  background: #222;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.5);
 }
 
 .map {
