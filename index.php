@@ -16,11 +16,11 @@
 <h1>Escolha seu Perfil</h1>
 
 <div class="container">
-  <div class="card">
+  <div class="card admin">
     <a href="admin/index.php">Sou Administrador</a>
   </div>
 
-  <div class="card">
+  <div class="card motorista">
     <a href="motorista/checkin.php">Sou Motorista</a>
   </div>
 </div>
