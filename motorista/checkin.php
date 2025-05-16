@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Check-in do Motorista</title>
-  <link rel="stylesheet" href="../style.css">
+    <meta charset="UTF-8">
+    <title>Check-in do Motorista</title>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-  <h1>Check-in do Motorista</h1>
-  <form action="salvar_checkin.php" method="POST">
+
+<h1>Check-in do Motorista</h1>
+
+<form action="salvar_checkin.php" method="POST">
     <label>Placa do Cavalo:</label>
     <input type="text" name="placa_cavalo" required>
 
@@ -16,9 +18,9 @@
 
     <label>Status:</label>
     <select name="status" required>
-      <option>Na garagem</option>
-      <option>No posto</option>
-      <option>Viajando</option>
+        <option value="Na garagem">Na garagem</option>
+        <option value="No posto">No posto</option>
+        <option value="Viajando">Viajando</option>
     </select>
 
     <label>Localização (cidade atual):</label>
@@ -28,7 +30,9 @@
     <input type="text" name="destino" required>
 
     <button type="submit">Enviar Check-in</button>
-  </form>
-  <a href="../index.php">← Voltar</a>
+</form>
+
+<a href="../index.php">← Voltar</a>
+
 </body>
 </html>
