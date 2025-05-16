@@ -9,7 +9,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: url('https://images.unsplash.com/photo-1507537297725-24a1c029d3ca') no-repeat center center fixed;
+      background: url('https://lh3.googleusercontent.com/p/AF1QipMBDzOw51G6BcLXmJHRgnGZu0gt0MvofihF7aT2=s1280') no-repeat center center fixed;
       background-size: cover;
       font-family: 'Segoe UI', sans-serif;
     }
@@ -22,7 +22,7 @@
       height: 100vh;
       text-align: center;
       color: white;
-      background-color: rgba(0,0,0,0.5);
+      background-color: rgba(0,0,0,0.6);
       padding: 20px;
     }
 
