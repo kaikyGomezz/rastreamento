@@ -2,7 +2,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  color: #1db954;
+  color: #ffffff;
 }
 
 .container {
@@ -19,43 +19,36 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 20px;
+  background: rgba(0, 0, 0, 0.85);
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
   text-align: center;
   transition: transform 0.3s;
   font-size: 20px;
   font-weight: bold;
+  color: white;
 }
 
 .card:hover {
   transform: scale(1.05);
 }
 
-.admin {
-  background: rgba(0,0,0,0.7); /* fundo escuro para contraste */
-}
-
-.motorista {
-  background: rgba(255, 255, 255, 0.1);
-  color: #1db954;
-}
-
 form {
   max-width: 500px;
   margin: 20px auto;
-  background: rgba(255, 255, 255, 0.05);
+  background: #000;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.3);
 }
 
-input, select, button {
+input, select, textarea {
   width: 100%;
   margin-top: 10px;
   padding: 12px;
   border-radius: 5px;
   border: none;
-  background: #1e1e1e;
-  color: #fff;
+  background: #ffffff;
+  color: black;
 }
 
 button, .btn {
@@ -64,10 +57,10 @@ button, .btn {
   color: white;
   font-weight: bold;
   cursor: pointer;
-  padding: 6px 8px;
+  padding: 5px 7px;
   border-radius: 5px;
   font-size: 10px;
-  margin: 3px;
+  margin: 2px;
   text-decoration: none;
   border: none;
   transition: background 0.3s;
@@ -78,7 +71,8 @@ button:hover, .btn:hover {
 }
 
 .caminhao {
-  background: rgba(255, 255, 255, 0.05);
+  background: #000;
+  color: white;
   padding: 20px;
   margin: 20px 0;
   border-radius: 10px;
@@ -91,8 +85,4 @@ button:hover, .btn:hover {
   margin-top: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-}
-
-a {
-  text-decoration: none;
 }
