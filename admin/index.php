@@ -13,40 +13,45 @@ $result = $mysqli->query("SELECT * FROM caminhoes");
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
-  <h1>Painel do Administrador</h1>
 
-  <?php while($row = $result->fetch_assoc()): ?>
-    <div class="caminhao">
-      <strong><?= htmlspecialchars($row['placa_cavalo']) ?> | Carreta: <?= htmlspecialchars($row['placa_carreta']) ?></strong>
-      <p>Status: <?= htmlspecialchars($row['status']) ?></p>
-      <p>Localização: <?= htmlspecialchars($row['localizacao']) ?></p>
-      <p>Destino: <?= htmlspecialchars($row['destino']) ?></p>
-      <p>Atualizado em: <?= htmlspecialchars($row['atualizado_em']) ?></p>
-      
-      <div id="map<?= $row['id'] ?>" class="map"></div>
+<h1>Painel do Administrador</h1>
+<a href="../index.php">← Voltar</a>
 
-      <form method="get" action="editar.php" style="display:inline;">
-        <input type="hidden" name="id" value="<?= $row['id'] ?>">
-        <button type="submit">Editar</button>
-      </form>
+<?php while($row = $result->fetch_assoc()): ?>
+  <div class="caminhao">
+    <strong><?= htmlspecialchars($row['placa_cavalo']) ?> | <?= htmlspecialchars($row['placa_carreta']) ?></strong>
+    <p>Status: <?= htmlspecialchars($row['status']) ?></p>
+    <p>Localização: <?= htmlspecialchars($row['localizacao']) ?></p>
+    <p>Destino: <?= htmlspecialchars($row['destino']) ?></p>
+    <p>Atualizado em: <?= htmlspecialchars($row['atualizado_em']) ?></p>
 
-      <form method="post" action="excluir.php" style="display:inline;">
-        <input type="hidden" name="id" value="<?= $row['id'] ?>">
-        <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
-      </form>
-    </div>
+    <div id="map<?= $row['id'] ?>" class="map"></div>
 
-    <script>
-      var map = L.map('map<?= $row['id'] ?>').setView([<?= $row['latitude'] ?>, <?= $row['longitude'] ?>], 6);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-      L.marker([<?= $row['latitude'] ?>, <?= $row['longitude'] ?>]).addTo(map).bindPopup('Localização atual').openPopup();
-      L.marker([<?= $row['destino_lat'] ?>, <?= $row['destino_lon'] ?>]).addTo(map).bindPopup('Destino');
-      var latlngs = [
-        [<?= $row['latitude'] ?>, <?= $row['longitude'] ?>],
-        [<?= $row['destino_lat'] ?>, <?= $row['destino_lon'] ?>]
-      ];
-      L.polyline(latlngs, {color: 'blue'}).addTo(map);
-    </script>
-  <?php endwhile; ?>
+    <form method="get" action="editar.php">
+      <input type="hidden" name="id" value="<?= $row['id'] ?>">
+      <button type="submit">Editar</button>
+    </form>
+
+    <form method="post" action="excluir.php">
+      <input type="hidden" name="id" value="<?= $row['id'] ?>">
+      <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+    </form>
+  </div>
+
+  <script>
+    var map = L.map('map<?= $row['id'] ?>').setView([<?= $row['latitude'] ?>, <?= $row['longitude'] ?>], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    L.marker([<?= $row['latitude'] ?>, <?= $row['longitude'] ?>]).addTo(map).bindPopup('Localização atual');
+    L.marker([<?= $row['destino_lat'] ?>, <?= $row['destino_lon'] ?>]).addTo(map).bindPopup('Destino');
+
+    var latlngs = [
+      [<?= $row['latitude'] ?>, <?= $row['longitude'] ?>],
+      [<?= $row['destino_lat'] ?>, <?= $row['destino_lon'] ?>]
+    ];
+    L.polyline(latlngs, {color: 'blue'}).addTo(map);
+  </script>
+<?php endwhile; ?>
+
 </body>
 </html>
