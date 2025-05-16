@@ -1,19 +1,11 @@
 <?php
-include("../conexao.php");
+$mysqli = new mysqli('switchyard.proxy.rlwy.net', 'root', 'UqRvkxHRiwvqDDoAEADLNXdmskmVaiES', 'railway', 40399);
 
-if (!isset($_GET["id"])) {
-  die("ID não informado.");
-}
+$id = $_POST['id'];
 
-$id = intval($_GET["id"]);
+$stmt = $mysqli->prepare("DELETE FROM caminhoes WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
 
-$sql = "DELETE FROM caminhoes WHERE id = $id";
-
-if ($conn->query($sql) === TRUE) {
-  echo "<script>alert('Caminhão excluído com sucesso!'); window.location.href='index.php';</script>";
-} else {
-  echo "Erro ao excluir: " . $conn->error;
-}
-
-$conn->close();
+header("Location: index.php");
 ?>
