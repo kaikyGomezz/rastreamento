@@ -6,7 +6,11 @@
   <link rel="stylesheet" href="style.css">
   <style>
     body {
-      background: #0f0f0f;
+      background: url('https://lh3.googleusercontent.com/p/AF1QipMBDzOw51G6BcLXmJHRgnGZu0gt0MvofihF7aT2=s680-w680-h510-rw') no-repeat center center fixed;
+      background-size: cover;
+    }
+    h1 {
+      color: black;
     }
   </style>
 </head>
@@ -15,11 +19,11 @@
 <h1>Escolha seu Perfil</h1>
 
 <div class="container">
-  <div class="card">
-    <a href="admin/index.php">Sou Administrador</a>
+  <div class="card admin">
+    <a href="admin/index.php" style="color:white;">Sou Administrador</a>
   </div>
 
-  <div class="card">
+  <div class="card motorista">
     <a href="motorista/checkin.php">Sou Motorista</a>
   </div>
 </div>
