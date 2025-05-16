@@ -27,24 +27,22 @@ $result = $mysqli->query("SELECT * FROM caminhoes");
 
     <div id="map<?= $row['id'] ?>" class="map"></div>
 
-    <form method="get" action="editar.php">
+    <form method="get" action="editar.php" style="display:inline;">
       <input type="hidden" name="id" value="<?= $row['id'] ?>">
-      <button type="submit">Editar</button>
+      <button type="submit" title="Editar">✏️</button>
     </form>
 
-    <form method="post" action="excluir.php">
+    <form method="post" action="excluir.php" style="display:inline;">
       <input type="hidden" name="id" value="<?= $row['id'] ?>">
-      <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+      <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')" title="Excluir">🗑️</button>
     </form>
   </div>
 
   <script>
     var map = L.map('map<?= $row['id'] ?>').setView([<?= $row['latitude'] ?>, <?= $row['longitude'] ?>], 6);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
     L.marker([<?= $row['latitude'] ?>, <?= $row['longitude'] ?>]).addTo(map).bindPopup('Localização atual');
     L.marker([<?= $row['destino_lat'] ?>, <?= $row['destino_lon'] ?>]).addTo(map).bindPopup('Destino');
-
     var latlngs = [
       [<?= $row['latitude'] ?>, <?= $row['longitude'] ?>],
       [<?= $row['destino_lat'] ?>, <?= $row['destino_lon'] ?>]
