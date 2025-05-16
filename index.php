@@ -2,186 +2,85 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Sistema de Rastreamento</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+  <title>Sistema de Rastreamento</title>
+  <link rel="stylesheet" href="style.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      box-sizing: border-box;
-    }
-
     body, html {
       height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      color: white;
       overflow: hidden;
     }
 
     video#bgVideo {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      z-index: -1;
       object-fit: cover;
-      z-index: -2;
+      filter: brightness(0.4);
     }
 
     .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.6);
-      z-index: -1;
-    }
-
-    .center-box {
       height: 100vh;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
-      flex-direction: column;
-      gap: 20px;
+      align-items: center;
     }
 
-    .option-button {
-      padding: 15px 30px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid #fff;
-      color: #fff;
-      font-size: 18px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s;
-      width: 250px;
-      text-align: center;
+    .overlay h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px black;
     }
 
-    .option-button:hover {
-      background-color: #00b894;
-      color: #000;
-    }
-
-    .login-box {
-      display: none;
-      flex-direction: column;
-      background-color: rgba(0, 0, 0, 0.75);
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-      width: 90%;
-      max-width: 400px;
-      color: white;
-      animation: slideIn 0.6s ease-in-out forwards;
-    }
-
-    .login-box h2 {
-      text-align: center;
-      margin-bottom: 25px;
-      font-size: 26px;
-    }
-
-    .login-box input, .login-box select {
-      padding: 12px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      width: 100%;
-    }
-
-    .login-box .remember {
+    .card {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
       display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      color: #ccc;
-      margin-bottom: 15px;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .login-box button {
-      padding: 12px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 8px;
-      background-color: #00b894;
+    .card a {
+      display: block;
+      background-color: #1db954;
       color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-      width: 100%;
-    }
-
-    .login-box button:hover {
-      background-color: #019270;
-    }
-
-    .login-box .link {
-      margin-top: 15px;
-      font-size: 13px;
-      text-align: center;
-    }
-
-    .login-box .link a {
-      color: #00b894;
       text-decoration: none;
+      margin: 10px 0;
+      padding: 12px 24px;
+      border-radius: 10px;
+      transition: background 0.3s;
+      width: 200px;
+      text-align: center;
+      font-weight: bold;
     }
 
-    @keyframes slideIn {
-      0% {
-        opacity: 0;
-        transform: translateY(50px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .card a:hover {
+      background-color: #17a44b;
     }
   </style>
 </head>
 <body>
-
-  <!-- Vídeo de fundo -->
   <video autoplay muted loop id="bgVideo">
-    <source src="https://cdn.coverr.co/videos/coverr-driving-on-a-highway-0663/1080p.mp4" type="video/mp4">
-    Seu navegador não suporta vídeos HTML5.
+    <source src="https://cdn.coverr.co/videos/coverr-truck-on-the-highway-9755/1080p.mp4" type="video/mp4">
+    Seu navegador não suporta vídeo em HTML5.
   </video>
 
-  <div class="overlay"></div>
-
-  <div class="center-box" id="choiceBox">
-    <div class="option-button" onclick="showLogin('admin')">Sou Administrador</div>
-    <div class="option-button" onclick="showLogin('motorista')">Sou Motorista</div>
-  </div>
-
-  <div class="center-box" id="loginContainer" style="display:none;">
-    <div class="login-box" id="loginBox">
-      <h2>Login</h2>
-      <form id="loginForm" method="POST" action="login.php">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="senha" placeholder="Senha" required>
-        <input type="hidden" name="tipo" id="tipoUsuario">
-        <div class="remember">
-          <label><input type="checkbox"> Lembrar me</label>
-          <a href="#">Esqueceu a senha?</a>
-        </div>
-        <button type="submit">Entrar</button>
-        <div class="link">
-          Não tem uma conta? <a href="registro.php">Criar conta</a>
-        </div>
-      </form>
+  <div class="overlay">
+    <h1>Escolha seu Perfil</h1>
+    <div class="card">
+      <a href="login.php?tipo=admin">Sou Administrador</a>
+      <a href="login.php?tipo=motorista">Sou Motorista</a>
     </div>
   </div>
-
-  <script>
-    function showLogin(tipo) {
-      document.getElementById('tipoUsuario').value = tipo;
-      document.getElementById('choiceBox').style.display = 'none';
-      document.getElementById('loginContainer').style.display = 'flex';
-    }
-  </script>
-
 </body>
 </html>
