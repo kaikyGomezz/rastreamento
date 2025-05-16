@@ -1,52 +1,57 @@
 <?php
-$mysqli = new mysqli('switchyard.proxy.rlwy.net', 'root', 'UqRvkxHRiwvqDDoAEADLNXdmskmVaiES', 'railway', 40399);
+include('../conexao.php');
+
+if (isset($_GET['id'])) {
+  $id = $_GET['id'];
+  $consulta = $mysqli->prepare("SELECT * FROM caminhoes WHERE id = ?");
+  $consulta->bind_param("i", $id);
+  $consulta->execute();
+  $resultado = $consulta->get_result();
+  $caminhao = $resultado->fetch_assoc();
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = $_POST['id'];
-    $status = $_POST['status'];
-    $destino = $_POST['destino'];
+  $id = $_POST['id'];
+  $placa_cavalo = $_POST['placa_cavalo'];
+  $placa_carreta = $_POST['placa_carreta'];
+  $status = $_POST['status'];
+  $localizacao = $_POST['localizacao'];
+  $destino = $_POST['destino'];
+  $latitude = $_POST['latitude'];
+  $longitude = $_POST['longitude'];
 
-    $stmt = $mysqli->prepare("UPDATE caminhoes SET status = ?, destino = ? WHERE id = ?");
-    $stmt->bind_param("ssi", $status, $destino, $id);
-    $stmt->execute();
+  $stmt = $mysqli->prepare("UPDATE caminhoes SET placa_cavalo=?, placa_carreta=?, status=?, localizacao=?, destino=?, latitude=?, longitude=? WHERE id=?");
+  $stmt->bind_param("ssssssdi", $placa_cavalo, $placa_carreta, $status, $localizacao, $destino, $latitude, $longitude, $id);
+  $stmt->execute();
 
-    header("Location: index.php");
-    exit;
-} else {
-    $id = $_GET['id'];
-    $res = $mysqli->query("SELECT * FROM caminhoes WHERE id = $id");
-    $row = $res->fetch_assoc();
+  echo "<script>alert('Atualizado com sucesso!'); window.location.href='index.php';</script>";
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Editar Caminhão</title>
-    <link rel="stylesheet" href="../style.css">
+  <meta charset="UTF-8">
+  <title>Editar Caminhão</title>
 </head>
-<body>
-
-<h1>Editar Caminhão</h1>
-
-<form method="post">
-    <input type="hidden" name="id" value="<?= $row['id'] ?>">
-
-    <label>Status:</label>
-    <select name="status" required>
-        <option <?= $row['status'] == 'Na garagem' ? 'selected' : '' ?>>Na garagem</option>
-        <option <?= $row['status'] == 'No posto' ? 'selected' : '' ?>>No posto</option>
-        <option <?= $row['status'] == 'Viajando' ? 'selected' : '' ?>>Viajando</option>
-    </select>
-
-    <label>Destino:</label>
-    <input type="text" name="destino" value="<?= htmlspecialchars($row['destino']) ?>" required>
-
-    <button type="submit">Salvar Alterações</button>
-</form>
-
-<a href="index.php">← Voltar</a>
-
+<body style="background:#000;color:white;padding:20px;font-family:sans-serif;">
+  <h2>Editar Caminhão</h2>
+  <form method="POST">
+    <input type="hidden" name="id" value="<?= $caminhao['id'] ?>">
+    <input type="text" name="placa_cavalo" value="<?= $caminhao['placa_cavalo'] ?>" required><br>
+    <input type="text" name="placa_carreta" value="<?= $caminhao['placa_carreta'] ?>" required><br>
+    <select name="status">
+      <option value="Na garagem" <?= $caminhao['status']=='Na garagem'?'selected':'' ?>>Na garagem</option>
+      <option value="No posto" <?= $caminhao['status']=='No posto'?'selected':'' ?>>No posto</option>
+      <option value="Viajando" <?= $caminhao['status']=='Viajando'?'selected':'' ?>>Viajando</option>
+    </select><br>
+    <input type="text" name="localizacao" value="<?= $caminhao['localizacao'] ?>" required><br>
+    <input type="text" name="destino" value="<?= $caminhao['destino'] ?>" required><br>
+    <input type="text" name="latitude" value="<?= $caminhao['latitude'] ?>" required><br>
+    <input type="text" name="longitude" value="<?= $caminhao['longitude'] ?>" required><br>
+    <button type="submit">Salvar</button>
+  </form>
+  <br>
+  <a href="index.php" style="color:#1db954;text-decoration:none;">← Voltar</a>
 </body>
 </html>
