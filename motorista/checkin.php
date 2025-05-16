@@ -23,7 +23,7 @@
     <option>Viajando</option>
   </select>
 
-  <label>Localização:</label>
+  <label>Localização (cidade atual):</label>
   <input type="text" id="localizacao" name="localizacao" required>
 
   <label>Destino:</label>
@@ -33,13 +33,13 @@
   <button type="submit">Enviar Check-in</button>
 </form>
 
-<a href="../index.php">← Voltar</a>
+<a href="../index.php" class="btn">← Voltar</a>
 
 <script>
   const inputDestino = document.getElementById('destino');
   const datalist = document.getElementById('destinos');
 
-  inputDestino.addEventListener('input', function() {
+  inputDestino.addEventListener('input', function () {
     fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + this.value)
       .then(res => res.json())
       .then(data => {
