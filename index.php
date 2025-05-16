@@ -6,53 +6,59 @@
   <title>Sistema de Rastreamento</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .inicio-container {
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('https://images.unsplash.com/photo-1507537297725-24a1c029d3ca') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .home-container {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
       text-align: center;
-    }
-
-    .inicio-container h1 {
-      font-size: 28px;
-      margin-bottom: 40px;
-    }
-
-    .inicio-container a {
-      display: inline-block;
-      margin: 12px;
-      padding: 14px 28px;
-      border-radius: 8px;
-      background-color: #00b894;
       color: white;
-      font-size: 16px;
-      text-decoration: none;
-      transition: background-color 0.2s ease-in-out;
+      background-color: rgba(0,0,0,0.5);
+      padding: 20px;
     }
 
-    .inicio-container a:hover {
-      background-color: #019270;
+    .card-opcao {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 2px solid #00cec9;
+      border-radius: 16px;
+      padding: 40px 20px;
+      margin: 20px;
+      width: 80%;
+      max-width: 400px;
+      text-decoration: none;
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+      transition: transform 0.2s ease-in-out, background-color 0.2s;
+    }
+
+    .card-opcao:hover {
+      background-color: rgba(0, 206, 201, 0.4);
+      transform: scale(1.03);
     }
 
     @media screen and (max-width: 600px) {
-      .inicio-container h1 {
-        font-size: 22px;
-      }
-
-      .inicio-container a {
-        padding: 12px 24px;
-        font-size: 15px;
+      .card-opcao {
+        font-size: 18px;
+        padding: 30px 15px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="inicio-container">
+  <div class="home-container">
     <h1>Bem-vindo ao Sistema de Rastreamento</h1>
-    <a href="admin/">Sou Administrador</a>
-    <a href="motorista/checkin.php">Sou Motorista</a>
+    <a href="admin/" class="card-opcao">Sou Administrador</a>
+    <a href="motorista/checkin.php" class="card-opcao">Sou Motorista</a>
   </div>
 </body>
 </html>
