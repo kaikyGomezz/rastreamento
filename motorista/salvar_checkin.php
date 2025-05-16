@@ -7,10 +7,11 @@ $status = $_POST['status'];
 $localizacao = $_POST['localizacao'];
 $destino = $_POST['destino'];
 
-// Exemplo fixo, ideal integrar API de geolocalização
-$latitude = -23.5505;
+// Para simplificação: valores fixos de latitude/longitude
+$latitude = -23.5505;  // Exemplo: São Paulo
 $longitude = -46.6333;
-$destino_lat = -20.4697;
+
+$destino_lat = -20.4697;  // Exemplo: Campo Grande
 $destino_lon = -54.6201;
 
 $stmt = $mysqli->prepare("INSERT INTO caminhoes (placa_cavalo, placa_carreta, status, localizacao, destino, latitude, longitude, destino_lat, destino_lon) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
