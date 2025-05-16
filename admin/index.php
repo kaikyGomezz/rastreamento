@@ -54,6 +54,25 @@ $resultado = $conn->query("SELECT * FROM caminhoes ORDER BY atualizado_em DESC")
       border: 2px solid #00cec9;
     }
 
+    .botoes-acoes {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .botoes-acoes a {
+      padding: 8px 14px;
+      text-decoration: none;
+      background-color: #00cec9;
+      color: white;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .botoes-acoes a.excluir {
+      background-color: #d63031;
+    }
+
     .botao-voltar {
       display: block;
       text-align: center;
@@ -91,6 +110,11 @@ $resultado = $conn->query("SELECT * FROM caminhoes ORDER BY atualizado_em DESC")
           <p><strong>Destino:</strong> <?php echo $linha['destino']; ?></p>
           <p><strong>Atualizado em:</strong> <?php echo date("d/m/Y H:i", strtotime($linha['atualizado_em'])); ?></p>
           <div class="mapa" id="mapa_<?php echo $linha['id']; ?>"></div>
+
+          <div class="botoes-acoes">
+            <a href="editar.php?id=<?php echo $linha['id']; ?>">Editar</a>
+            <a class="excluir" href="excluir.php?id=<?php echo $linha['id']; ?>" onclick="return confirm('Deseja realmente excluir este caminhão?');">Excluir</a>
+          </div>
         </div>
         <div class="foto-caminhao">
           <img src="https://cdn.pixabay.com/photo/2016/06/15/15/58/truck-1453932_1280.png" alt="Caminhão">
@@ -115,8 +139,7 @@ $resultado = $conn->query("SELECT * FROM caminhoes ORDER BY atualizado_em DESC")
         attribution: '&copy; OpenStreetMap contributors'
       }).addTo(mapa_<?php echo $id; ?>);
       L.marker([<?php echo $lat; ?>, <?php echo $lng; ?>]).addTo(mapa_<?php echo $id; ?>)
-        .bindPopup("<?php echo $linha['placa_cavalo']; ?>")
-        .openPopup();
+        .bindPopup("<?php echo $linha['placa_cavalo']; ?>");
     <?php endwhile; ?>
   </script>
 </body>
