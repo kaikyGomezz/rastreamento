@@ -26,15 +26,11 @@ $resultado = $conn->query("SELECT * FROM caminhoes ORDER BY atualizado_em DESC")
       box-shadow: 0 0 8px rgba(0,0,0,0.3);
     }
 
-    .card-caminhao h3 {
-      margin-top: 0;
-    }
-
     .mapa {
       width: 100%;
       height: 300px;
-      border-radius: 10px;
       margin-top: 10px;
+      border-radius: 10px;
       border: 2px solid #00cec9;
     }
 
@@ -50,12 +46,6 @@ $resultado = $conn->query("SELECT * FROM caminhoes ORDER BY atualizado_em DESC")
     .botao-voltar:hover {
       color: white;
     }
-
-    @media screen and (max-width: 768px) {
-      .mapa {
-        height: 250px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -64,7 +54,7 @@ $resultado = $conn->query("SELECT * FROM caminhoes ORDER BY atualizado_em DESC")
 
     <?php while($linha = $resultado->fetch_assoc()): ?>
       <div class="card-caminhao">
-        <h3>🚛 <?php echo $linha['placa_cavalo'] . " | Carreta: " . $linha['placa_carreta']; ?></h3>
+        <h3>🚛 <?php echo $linha['placa_cavalo']; ?> | Carreta: <?php echo $linha['placa_carreta']; ?></h3>
         <p><strong>Status:</strong> <?php echo $linha['status']; ?></p>
         <p><strong>Localização:</strong> <?php echo $linha['localizacao']; ?></p>
         <p><strong>Destino:</strong> <?php echo $linha['destino']; ?></p>
@@ -78,20 +68,57 @@ $resultado = $conn->query("SELECT * FROM caminhoes ORDER BY atualizado_em DESC")
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
+    async function buscarDestino(endereco) {
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(endereco)}`;
+      const resposta = await fetch(url, {
+        headers: { "User-Agent": "rastreamento-app" }
+      });
+      const dados = await resposta.json();
+      if (dados.length > 0) {
+        return [parseFloat(dados[0].lat), parseFloat(dados[0].lon)];
+      }
+      return null;
+    }
+
+    async function initMap(id, origemLat, origemLng, destinoTexto) {
+      const mapa = L.map(`mapa_${id}`).setView([origemLat, origemLng], 13);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(mapa);
+
+      const origem = L.marker([origemLat, origemLng]).addTo(mapa)
+        .bindPopup("Local atual").openPopup();
+
+      const destinoCoords = await buscarDestino(destinoTexto);
+      if (destinoCoords) {
+        const destino = L.marker(destinoCoords, { icon: L.icon({
+          iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+          iconSize: [25, 25],
+          iconAnchor: [12, 24],
+          popupAnchor: [0, -20]
+        })}).addTo(mapa)
+          .bindPopup("Destino");
+
+        const linha = L.polyline([ [origemLat, origemLng], destinoCoords ], {
+          color: "orange",
+          weight: 3,
+          dashArray: '5, 10'
+        }).addTo(mapa);
+
+        mapa.fitBounds(linha.getBounds(), { padding: [30, 30] });
+      }
+    }
+
     <?php
     $resultado->data_seek(0);
     while ($linha = $resultado->fetch_assoc()):
+      $id = $linha['id'];
       $lat = $linha['latitude'];
       $lng = $linha['longitude'];
-      $id = $linha['id'];
+      $destino = addslashes($linha['destino']);
     ?>
-      var mapa_<?php echo $id; ?> = L.map('mapa_<?php echo $id; ?>').setView([<?php echo $lat; ?>, <?php echo $lng; ?>], 14);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(mapa_<?php echo $id; ?>);
-      L.marker([<?php echo $lat; ?>, <?php echo $lng; ?>]).addTo(mapa_<?php echo $id; ?>)
-        .bindPopup("<?php echo $linha['placa_cavalo']; ?>")
-        .openPopup();
+    initMap(<?php echo $id; ?>, <?php echo $lat; ?>, <?php echo $lng; ?>, "<?php echo $destino; ?>");
     <?php endwhile; ?>
   </script>
 </body>
