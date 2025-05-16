@@ -23,7 +23,7 @@
     <option>Viajando</option>
   </select>
 
-  <label>Localização (cidade atual):</label>
+  <label>Localização:</label>
   <input type="text" id="localizacao" name="localizacao" required>
 
   <label>Destino:</label>
