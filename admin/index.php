@@ -15,7 +15,8 @@ $result = $mysqli->query("SELECT * FROM caminhoes");
 <body>
 
 <h1>Painel do Administrador</h1>
-<a href="../index.php">← Voltar</a>
+
+<a href="../index.php" class="btn">← Voltar</a>
 
 <?php while($row = $result->fetch_assoc()): ?>
   <div class="caminhao">
