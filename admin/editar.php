@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       margin-top: 10px;
     }
 
-    input[type="text"] {
+    input[type="text"], select {
       width: 100%;
       padding: 10px;
       margin-top: 4px;
@@ -107,7 +107,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       <input type="text" name="placa_carreta" value="<?php echo $dados['placa_carreta']; ?>" required />
 
       <label>Status:</label>
-      <input type="text" name="status" value="<?php echo $dados['status']; ?>" required />
+      <select name="status" required>
+        <option value="Na garagem" <?php if($dados['status'] == 'Na garagem') echo 'selected'; ?>>Na garagem</option>
+        <option value="Parado" <?php if($dados['status'] == 'Parado') echo 'selected'; ?>>Parado</option>
+        <option value="Viajando" <?php if($dados['status'] == 'Viajando') echo 'selected'; ?>>Viajando</option>
+      </select>
 
       <label>Localização:</label>
       <input type="text" name="localizacao" value="<?php echo $dados['localizacao']; ?>" required />
