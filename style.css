@@ -30,12 +30,26 @@ body.index {
   background: rgba(0, 0, 0, 0.8);
 }
 
-.caminhao {
-  background: #222;
+form {
+  max-width: 500px;
+  margin: auto;
+  background: rgba(0,0,0,0.6);
+  padding: 30px;
   border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.5);
+}
+
+input, select, button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+button {
+  background: teal;
+  color: white;
+  font-weight: bold;
 }
 
 .map {
