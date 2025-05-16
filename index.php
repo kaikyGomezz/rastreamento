@@ -20,10 +20,10 @@
 
 <div class="container">
   <div class="card admin">
-    <a href="admin/index.php" style="color:white;">Sou Administrador</a>
+    <a href="admin/index.php">Sou Administrador</a>
   </div>
 
-  <div class="card motorista">
+  <div class="card admin">
     <a href="motorista/checkin.php">Sou Motorista</a>
   </div>
 </div>
