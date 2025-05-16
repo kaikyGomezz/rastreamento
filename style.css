@@ -21,7 +21,6 @@ h1 {
 .card {
   width: 250px;
   height: 250px;
-  background: rgba(255, 255, 255, 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,36 +28,60 @@ h1 {
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
   text-align: center;
   transition: transform 0.3s;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .card:hover {
   transform: scale(1.05);
 }
 
-.card a {
-  text-decoration: none;
-  color: #1db954;
-  font-size: 20px;
-  font-weight: bold;
+.admin {
+  background: rgba(255, 87, 34, 0.8); /* Laranja contrastante */
+  color: #fff;
 }
 
-form button, .btn {
+.motorista {
+  background: rgba(33, 150, 243, 0.8); /* Azul claro contrastante */
+  color: #fff;
+}
+
+form {
+  max-width: 500px;
+  margin: 20px auto;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+input, select, button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 5px;
+  border: none;
+  background: #1e1e1e;
+  color: #fff;
+}
+
+button, .btn {
   display: inline-block;
-  background: teal;
+  background: #1db954;
   color: white;
   font-weight: bold;
   cursor: pointer;
   padding: 6px 10px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 14px;
   margin: 5px;
   text-decoration: none;
   border: none;
   transition: background 0.3s;
 }
 
-form button:hover, .btn:hover {
-  background: #006666;
+button:hover, .btn:hover {
+  background: #14833b;
 }
 
 .caminhao {
@@ -75,4 +98,13 @@ form button:hover, .btn:hover {
   margin-top: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+a {
+  color: #1db954;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
