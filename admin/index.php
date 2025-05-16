@@ -117,7 +117,7 @@ $resultado = $conn->query("SELECT * FROM caminhoes ORDER BY atualizado_em DESC")
           </div>
         </div>
         <div class="foto-caminhao">
-          <img src="https://cdn.pixabay.com/photo/2016/06/15/15/58/truck-1453932_1280.png" alt="Caminhão">
+          <img src="https://cdn.pixabay.com/photo/2017/09/04/18/56/truck-2717052_1280.jpg" alt="Carreta ilustrativa" />
         </div>
       </div>
     <?php endwhile; ?>
