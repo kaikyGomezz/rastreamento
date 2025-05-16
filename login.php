@@ -1,49 +1,27 @@
-<?php
-session_start();
-include('conexao.php');
-
-$tipo = $_GET['tipo'] ?? 'admin';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $email = $_POST['email'];
-  $senha = $_POST['senha'];
-
-  $stmt = $mysqli->prepare("SELECT * FROM usuarios WHERE email = ? AND tipo = ?");
-  $stmt->bind_param("ss", $email, $tipo);
-  $stmt->execute();
-  $resultado = $stmt->get_result();
-
-  if ($resultado->num_rows === 1) {
-    $usuario = $resultado->fetch_assoc();
-
-    if (password_verify($senha, $usuario['senha'])) {
-      $_SESSION['usuario'] = $usuario;
-      if ($usuario['tipo'] === 'admin') {
-        header('Location: admin/index.php');
-      } else {
-        header('Location: motorista/checkin.php');
-      }
-      exit();
-    }
-  }
-
-  echo "<script>alert('Usuário ou senha incorretos!'); window.location.href='index.php';</script>";
-}
-?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Login - <?= ucfirst($tipo) ?></h2>
-  <form method="POST">
-    <input type="email" name="email" placeholder="Email" required><br>
-    <input type="password" name="senha" placeholder="Senha" required><br>
-    <button type="submit">Entrar</button>
-  </form>
+  <div class="form-container">
+    <h2>Login</h2>
+    <form action="conexao.php" method="POST">
+      <input type="hidden" name="acao" value="login">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="senha" placeholder="Senha" required>
+      <select name="tipo" required>
+        <option value="">Selecione o tipo</option>
+        <option value="admin">Administrador</option>
+        <option value="motorista">Motorista</option>
+      </select>
+      <button type="submit">Entrar</button>
+    </form>
+    <a href="registro.php">Não tem conta? Criar agora</a>
+    <br>
+    <a href="index.php">← Voltar para o início</a>
+  </div>
 </body>
 </html>
