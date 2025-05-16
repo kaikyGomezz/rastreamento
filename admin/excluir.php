@@ -1,11 +1,13 @@
 <?php
-$mysqli = new mysqli('switchyard.proxy.rlwy.net', 'root', 'UqRvkxHRiwvqDDoAEADLNXdmskmVaiES', 'railway', 40399);
+include('../conexao.php');
 
-$id = $_POST['id'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $id = $_POST['id'];
 
-$stmt = $mysqli->prepare("DELETE FROM caminhoes WHERE id = ?");
-$stmt->bind_param("i", $id);
-$stmt->execute();
+  $stmt = $mysqli->prepare("DELETE FROM caminhoes WHERE id = ?");
+  $stmt->bind_param("i", $id);
+  $stmt->execute();
+}
 
-header("Location: index.php");
-?>
+header('Location: index.php');
+exit();
