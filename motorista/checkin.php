@@ -27,7 +27,8 @@
   <input type="text" id="localizacao" name="localizacao" required>
 
   <label>Destino:</label>
-  <input type="text" id="destino" name="destino" required>
+  <input type="text" id="destino" name="destino" list="destinos" required>
+  <datalist id="destinos"></datalist>
 
   <button type="submit">Enviar Check-in</button>
 </form>
@@ -35,13 +36,19 @@
 <a href="../index.php">← Voltar</a>
 
 <script>
-  document.getElementById('destino').addEventListener('input', function() {
+  const inputDestino = document.getElementById('destino');
+  const datalist = document.getElementById('destinos');
+
+  inputDestino.addEventListener('input', function() {
     fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + this.value)
       .then(res => res.json())
       .then(data => {
-        if(data.length > 0){
-          this.value = data[0].display_name;
-        }
+        datalist.innerHTML = '';
+        data.forEach(item => {
+          const option = document.createElement('option');
+          option.value = item.display_name;
+          datalist.appendChild(option);
+        });
       });
   });
 </script>
