@@ -1,38 +1,13 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #121212;
-  color: #fff;
-}
-
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
-}
-
-form {
-  max-width: 500px;
-  margin: 20px auto;
-  background: rgba(0,0,0,0.7);
-  padding: 30px;
-  border-radius: 10px;
-}
-
-input, select, button {
-  width: 100%;
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-}
-
 button {
   background: teal;
   color: white;
   font-weight: bold;
   cursor: pointer;
+  padding: 6px 10px; /* menor */
+  border-radius: 5px;
+  font-size: 14px;
+  margin: 5px;
+  transition: background 0.3s;
 }
 
 button:hover {
