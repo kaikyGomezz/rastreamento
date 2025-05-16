@@ -24,6 +24,16 @@ $result = $mysqli->query("SELECT * FROM caminhoes");
       <p>Atualizado em: <?= htmlspecialchars($row['atualizado_em']) ?></p>
       
       <div id="map<?= $row['id'] ?>" class="map"></div>
+
+      <form method="get" action="editar.php" style="display:inline;">
+        <input type="hidden" name="id" value="<?= $row['id'] ?>">
+        <button type="submit">Editar</button>
+      </form>
+
+      <form method="post" action="excluir.php" style="display:inline;">
+        <input type="hidden" name="id" value="<?= $row['id'] ?>">
+        <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+      </form>
     </div>
 
     <script>
