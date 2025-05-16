@@ -2,27 +2,27 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Check-in do Motorista</title>
   <link rel="stylesheet" href="../style.css" />
   <style>
-    .autocomplete-sugestoes {
+    .autocomplete-suggestions {
+      background: white;
+      color: black;
       border: 1px solid #ccc;
-      background-color: white;
-      position: absolute;
-      z-index: 9999;
-      width: 100%;
-      max-height: 200px;
+      max-height: 150px;
       overflow-y: auto;
+      position: absolute;
+      width: 100%;
+      z-index: 9999;
     }
 
-    .autocomplete-sugestoes div {
-      padding: 10px;
+    .autocomplete-suggestion {
+      padding: 8px 10px;
       cursor: pointer;
-      border-bottom: 1px solid #eee;
     }
 
-    .autocomplete-sugestoes div:hover {
+    .autocomplete-suggestion:hover {
       background-color: #f0f0f0;
     }
   </style>
@@ -30,7 +30,7 @@
 <body>
   <div class="container">
     <h2>Check-in do Motorista</h2>
-    <form action="salvar_checkin.php" method="post">
+    <form action="salvar_checkin.php" method="post" autocomplete="off">
       <label>Placa do Cavalo:</label>
       <input type="text" name="placa_cavalo" required />
 
@@ -38,14 +38,14 @@
       <input type="text" name="placa_carreta" required />
 
       <label>Status:</label>
-      <input type="text" name="status" placeholder="Ex: Viajando, Na garagem..." required />
+      <input type="text" name="status" required />
 
-      <label>Localização (cidade atual):</label>
+      <label>Localização atual (nome da cidade):</label>
       <input type="text" name="localizacao" required />
 
-      <label>Destino (com sugestões):</label>
-      <input type="text" name="destino" id="destino" autocomplete="off" required />
-      <div id="sugestoes" class="autocomplete-sugestoes"></div>
+      <label>Destino:</label>
+      <input type="text" name="destino" id="destino" required />
+      <div id="sugestoes" class="autocomplete-suggestions"></div>
 
       <button type="submit">Enviar Check-in</button>
     </form>
@@ -54,34 +54,35 @@
 
   <script>
     const destinoInput = document.getElementById('destino');
-    const sugestoesBox = document.getElementById('sugestoes');
+    const sugestoes = document.getElementById('sugestoes');
 
-    destinoInput.addEventListener('input', async () => {
-      const valor = destinoInput.value.trim();
-      sugestoesBox.innerHTML = '';
-      if (valor.length < 3) return;
+    destinoInput.addEventListener('input', function () {
+      const valor = this.value;
+      if (valor.length < 3) {
+        sugestoes.innerHTML = '';
+        return;
+      }
 
-      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(valor)}&addressdetails=1&limit=5`;
-
-      const resposta = await fetch(url, {
-        headers: { "User-Agent": "rastreamento-app" }
-      });
-      const dados = await resposta.json();
-
-      dados.forEach(item => {
-        const div = document.createElement('div');
-        div.textContent = item.display_name;
-        div.onclick = () => {
-          destinoInput.value = item.display_name;
-          sugestoesBox.innerHTML = '';
-        };
-        sugestoesBox.appendChild(div);
-      });
+      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(valor)}`)
+        .then(response => response.json())
+        .then(data => {
+          sugestoes.innerHTML = '';
+          data.slice(0, 5).forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'autocomplete-suggestion';
+            div.textContent = item.display_name;
+            div.onclick = () => {
+              destinoInput.value = item.display_name;
+              sugestoes.innerHTML = '';
+            };
+            sugestoes.appendChild(div);
+          });
+        });
     });
 
-    document.addEventListener('click', function (e) {
-      if (!sugestoesBox.contains(e.target) && e.target !== destinoInput) {
-        sugestoesBox.innerHTML = '';
+    document.addEventListener('click', (e) => {
+      if (!sugestoes.contains(e.target) && e.target !== destinoInput) {
+        sugestoes.innerHTML = '';
       }
     });
   </script>
