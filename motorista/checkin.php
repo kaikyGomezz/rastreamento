@@ -25,6 +25,15 @@
     .autocomplete-suggestion:hover {
       background-color: #f0f0f0;
     }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 4px;
+      border-radius: 6px;
+      font-size: 15px;
+      border: none;
+    }
   </style>
 </head>
 <body>
@@ -38,9 +47,13 @@
       <input type="text" name="placa_carreta" required />
 
       <label>Status:</label>
-      <input type="text" name="status" required />
+      <select name="status" required>
+        <option value="Na garagem">Na garagem</option>
+        <option value="Parado">Parado</option>
+        <option value="Viajando">Viajando</option>
+      </select>
 
-      <label>Localização atual (nome da cidade):</label>
+      <label>Localização atual:</label>
       <input type="text" name="localizacao" required />
 
       <label>Destino:</label>
