@@ -1,79 +1,56 @@
-* {
+/* style.css */
+body {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body, html {
-  height: 100%;
   font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
 }
 
-#background-video {
-  position: fixed;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  min-height: 100%;
-  z-index: -1;
-  filter: brightness(40%);
-  object-fit: cover;
-}
-
-.login-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0,0,0,0.75);
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.7);
-  width: 90%;
+.form-container {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  width: 100%;
   max-width: 400px;
   text-align: center;
 }
 
-.login-container h1 {
-  margin-bottom: 20px;
-  font-size: 2em;
-}
-
-.login-container input,
-.login-container select {
+input[type="email"],
+input[type="password"],
+input[type="text"],
+button {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   margin: 10px 0;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 16px;
 }
 
-.login-container button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 15px;
-  background-color: #1db954;
+button {
+  background-color: #00cc66;
   color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: 0.3s;
 }
 
-.login-container button:hover {
-  background-color: #14833b;
+button:hover {
+  background-color: #00994d;
 }
 
-.criar-conta {
-  display: block;
-  margin-top: 20px;
-  color: #ccc;
+a {
+  color: #00ccff;
   text-decoration: none;
+  display: inline-block;
+  margin-top: 10px;
 }
 
-.criar-conta:hover {
+a:hover {
   text-decoration: underline;
 }
