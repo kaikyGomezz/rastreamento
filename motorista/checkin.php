@@ -1,54 +1,111 @@
-<?php
-include('../conexao.php');
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $placa_cavalo = $_POST['placa_cavalo'];
-  $placa_carreta = $_POST['placa_carreta'];
-  $status = $_POST['status'];
-  $localizacao = $_POST['localizacao'];
-  $destino = $_POST['destino'];
-  $latitude = $_POST['latitude'];
-  $longitude = $_POST['longitude'];
-
-  $stmt = $mysqli->prepare("INSERT INTO caminhoes (placa_cavalo, placa_carreta, status, localizacao, destino, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?)");
-  $stmt->bind_param("ssssssd", $placa_cavalo, $placa_carreta, $status, $localizacao, $destino, $latitude, $longitude);
-  $stmt->execute();
-
-  echo "<script>alert('Check-in enviado com sucesso!'); window.location.href='../index.php';</script>";
-}
-?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Check-in do Motorista</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #0f0f0f, #1c1c1c);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background-color: #111;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,255,0,0.3);
+      width: 90%;
+      max-width: 500px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #00ff99;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      color: #ccc;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #00ff88;
+      border: none;
+      color: black;
+      padding: 12px;
+      width: 100%;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #00cc66;
+    }
+
+    .voltar {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #00ff88;
+      text-decoration: none;
+    }
+
+    .voltar:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
-<body style="background:#000;color:white;padding:20px;font-family:sans-serif;">
-  <h2>Check-in do Motorista</h2>
-  <form method="POST">
-    <label>Placa do Cavalo:</label><br>
-    <input type="text" name="placa_cavalo" required><br>
-    <label>Placa da Carreta:</label><br>
-    <input type="text" name="placa_carreta" required><br>
-    <label>Status:</label><br>
-    <select name="status" required>
-      <option value="Na garagem">Na garagem</option>
-      <option value="No posto">No posto</option>
-      <option value="Viajando">Viajando</option>
-    </select><br>
-    <label>Localização:</label><br>
-    <input type="text" name="localizacao" required><br>
-    <label>Destino:</label><br>
-    <input type="text" name="destino" required><br>
-    <label>Latitude:</label><br>
-    <input type="text" name="latitude" required><br>
-    <label>Longitude:</label><br>
-    <input type="text" name="longitude" required><br><br>
-    <button type="submit">Enviar Check-in</button>
-  </form>
-  <br>
-  <a href="../index.php" style="color:#1db954;text-decoration:none;">← Voltar</a>
+<body>
+
+  <div class="form-container">
+    <h1>Check-in do Motorista</h1>
+    <form action="salvar_checkin.php" method="POST">
+      <label>Placa do Cavalo:</label>
+      <input type="text" name="placa_cavalo" required>
+
+      <label>Placa da Carreta:</label>
+      <input type="text" name="placa_carreta" required>
+
+      <label>Status:</label>
+      <select name="status" required>
+        <option value="Na garagem">Na garagem</option>
+        <option value="No posto">No posto</option>
+        <option value="Viajando">Viajando</option>
+      </select>
+
+      <label>Localização (cidade atual):</label>
+      <input type="text" name="localizacao" required>
+
+      <label>Destino:</label>
+      <input type="text" name="destino" required>
+
+      <button type="submit">Enviar Check-in</button>
+    </form>
+
+    <a href="../index.php" class="voltar">← Voltar</a>
+  </div>
+
 </body>
 </html>
