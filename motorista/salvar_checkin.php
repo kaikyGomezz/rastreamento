@@ -1,22 +1,45 @@
 <?php
-$mysqli = new mysqli('switchyard.proxy.rlwy.net', 'root', 'UqRvkxHRiwvqDDoAEADLNXdmskmVaiES', 'railway', 40399);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    include '../conexao.php';
 
-$placa_cavalo = $_POST['placa_cavalo'];
-$placa_carreta = $_POST['placa_carreta'];
-$status = $_POST['status'];
-$localizacao = $_POST['localizacao'];
-$destino = $_POST['destino'];
+    function getCoordinates($location) {
+        $url = "https://nominatim.openstreetmap.org/search?format=json&q=" . urlencode($location);
+        $opts = [
+            "http" => [
+                "method" => "GET",
+                "header" => "User-Agent: rastreamentoApp/1.0\r\n"
+            ]
+        ];
+        $context = stream_context_create($opts);
+        $response = file_get_contents($url, false, $context);
+        $data = json_decode($response, true);
+        if (!empty($data)) {
+            return [$data[0]['lat'], $data[0]['lon']];
+        }
+        return [null, null];
+    }
 
-// Para simplificação: valores fixos de latitude/longitude
-$latitude = -23.5505;  // Exemplo: São Paulo
-$longitude = -46.6333;
+    $placa_cavalo = $_POST['placa_cavalo'];
+    $placa_carreta = $_POST['placa_carreta'];
+    $status = $_POST['status'];
+    $localizacao = $_POST['localizacao'];
+    $destino = $_POST['destino'];
 
-$destino_lat = -20.4697;  // Exemplo: Campo Grande
-$destino_lon = -54.6201;
+    // Coletar coordenadas
+    list($latitude, $longitude) = getCoordinates($localizacao);
+    list($destino_lat, $destino_lon) = getCoordinates($destino);
 
-$stmt = $mysqli->prepare("INSERT INTO caminhoes (placa_cavalo, placa_carreta, status, localizacao, destino, latitude, longitude, destino_lat, destino_lon) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("ssssssddd", $placa_cavalo, $placa_carreta, $status, $localizacao, $destino, $latitude, $longitude, $destino_lat, $destino_lon);
-$stmt->execute();
+    $stmt = $mysqli->prepare("INSERT INTO caminhoes (placa_cavalo, placa_carreta, status, localizacao, destino, latitude, longitude, destino_lat, destino_lon) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssssss", $placa_cavalo, $placa_carreta, $status, $localizacao, $destino, $latitude, $longitude, $destino_lat, $destino_lon);
 
-header("Location: ../index.php");
+    if ($stmt->execute()) {
+        header("Location: checkin.php?success=1");
+        exit();
+    } else {
+        echo "Erro ao salvar os dados.";
+    }
+
+    $stmt->close();
+    $mysqli->close();
+}
 ?>
